@@ -22,6 +22,22 @@
   <body>
     <h1>🚴🏼‍♀️ Bikewatching</h1>
     <p>Bikewatching is a tool to track and visualize bike movements and usage in urban environments.</p>
-    <div id="map"></div>
+
+    <header style="display: flex; gap: 1em; align-items: baseline; padding: 0.5em 1em;">
+      <h1>Bluebikes Station Traffic</h1>
+      <label style="margin-left: auto;">
+        Filter by time:
+        <input type="range" id="time-slider" min="-1" max="1440" value="-1" step="15">
+        <time id="time-display" style="display: block;"></time>
+        <em id="any-time" style="display: block; color: #777; font-style: italic;">(any time)</em>
+      </label>
+    </header>
+
+
+
+    <div id="map">
+      <svg></svg>
+    </div>
+
   </body>
 </html>
