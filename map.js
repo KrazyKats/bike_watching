@@ -83,6 +83,9 @@ function computeStationTraffic(stations, timeFilter = -1) {
 }
 
 
+let stationFlow = d3.scaleQuantize()
+  .domain([0, 1])
+  .range([0, 0.5, 1]); // maps ratio → discrete step
 
 
 
@@ -224,7 +227,8 @@ map.on('load', async () => {
       .attr('fill-opacity', 0.6)
       .attr('stroke', 'white')
       .attr('stroke-width', 1)
-      .style('pointer-events', 'auto'); // Override default svg pointer-events
+      .style('pointer-events', 'auto') // Override default svg pointer-events
+      .style('--departure-ratio', d => stationFlow(d.departures / d.totalTraffic));
 
     circles
       .each(function (d) {
@@ -282,7 +286,8 @@ map.on('load', async () => {
       circles
         .data(filteredStations, d => d.short_name)
         .join('circle')
-        .attr('r', d => radiusScale(d.totalTraffic));
+        .attr('r', d => radiusScale(d.totalTraffic))
+        .style('--departure-ratio', d => stationFlow(d.departures / d.totalTraffic));
     }
 
 
